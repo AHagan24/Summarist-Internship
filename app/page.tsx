@@ -1,3 +1,6 @@
+import { AuthModalProvider } from "@/components/AuthModalProvider";
+import AuthModalTrigger from "@/components/AuthModalTrigger";
+
 function FileTextIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -165,14 +168,19 @@ const footerGroups = [
 
 export default function Home() {
   return (
-    <main className="home-page">
+    <AuthModalProvider>
+      <main className="home-page">
       <nav className="nav">
         <div className="nav__wrapper">
           <figure className="nav__img--mask">
             <img className="nav__img" src="/assets/logo.png" alt="Summarist" />
           </figure>
           <ul className="nav__list--wrapper">
-            <li className="nav__list nav__list--login">Login</li>
+            <li>
+              <AuthModalTrigger className="nav__list nav__list--login">
+                Login
+              </AuthModalTrigger>
+            </li>
             <li className="nav__list nav__list--mobile">About</li>
             <li className="nav__list nav__list--mobile">Contact</li>
             <li className="nav__list nav__list--mobile">Help</li>
@@ -196,9 +204,9 @@ export default function Home() {
                   <br className="remove--tablet" />
                   and even people who don&apos;t like to read.
                 </p>
-                <button className="btn home__cta--btn" type="button">
+                <AuthModalTrigger className="btn home__cta--btn">
                   Login
-                </button>
+                </AuthModalTrigger>
               </div>
               <figure className="landing__image--mask">
                 <img src="/assets/landing.png" alt="Reading summaries" />
@@ -331,9 +339,9 @@ export default function Home() {
               ))}
             </div>
             <div className="reviews__btn--wrapper">
-              <button className="btn home__cta--btn" type="button">
+              <AuthModalTrigger className="btn home__cta--btn">
                 Login
-              </button>
+              </AuthModalTrigger>
             </div>
           </div>
         </div>
@@ -405,6 +413,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </AuthModalProvider>
   );
 }
