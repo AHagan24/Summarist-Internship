@@ -21,6 +21,8 @@ export type Book = {
 
 const BOOKS_API_URL =
   "https://us-central1-summaristt.cloudfunctions.net/getBooks";
+const BOOK_API_URL =
+  "https://us-central1-summaristt.cloudfunctions.net/getBook";
 
 export async function getBooksByStatus(status: BookStatus): Promise<Book[]> {
   const response = await fetch(
@@ -39,4 +41,22 @@ export async function getBooksByStatus(status: BookStatus): Promise<Book[]> {
   }
 
   return books;
+}
+
+export async function getBookById(id: string): Promise<Book> {
+  const response = await fetch(`${BOOK_API_URL}?id=${encodeURIComponent(id)}`, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch book details.");
+  }
+
+  const book = (await response.json()) as Book;
+
+  if (!book || typeof book !== "object" || !book.id) {
+    throw new Error("Invalid book details response.");
+  }
+
+  return book;
 }
