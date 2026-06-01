@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { onAuthStateChanged, type User } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { saveFinishedBook, type LibraryBook } from "@/lib/library";
 
 type AudioPlayerProps = {
   audioLink: string;
-  bookId: string;
+  book: LibraryBook;
 };
 
 function formatTime(seconds: number) {
@@ -19,11 +22,21 @@ function formatTime(seconds: number) {
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 }
 
-export default function AudioPlayer({ audioLink, bookId }: AudioPlayerProps) {
+export default function AudioPlayer({ audioLink, book }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasMarkedFinished, setHasMarkedFinished] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
+      setUser(nextUser);
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -38,7 +51,8 @@ export default function AudioPlayer({ audioLink, bookId }: AudioPlayerProps) {
     setCurrentTime(0);
     setDuration(0);
     setIsPlaying(false);
-  }, [audioLink, bookId]);
+    setHasMarkedFinished(false);
+  }, [audioLink, book.id]);
 
   function updateDuration() {
     const audio = audioRef.current;
@@ -87,6 +101,22 @@ export default function AudioPlayer({ audioLink, bookId }: AudioPlayerProps) {
     seekTo(nextTime);
   }
 
+  async function handleEnded() {
+    setIsPlaying(false);
+
+    if (!user || hasMarkedFinished) {
+      return;
+    }
+
+    setHasMarkedFinished(true);
+
+    try {
+      await saveFinishedBook(user.uid, book);
+    } catch {
+      setHasMarkedFinished(false);
+    }
+  }
+
   return (
     <section className="audio-player" aria-label="Book audio player">
       <audio
@@ -94,7 +124,9 @@ export default function AudioPlayer({ audioLink, bookId }: AudioPlayerProps) {
         src={audioLink}
         preload="metadata"
         onDurationChange={updateDuration}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => {
+          void handleEnded();
+        }}
         onLoadedMetadata={updateDuration}
         onPause={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}
