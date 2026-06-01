@@ -23,6 +23,8 @@ const BOOKS_API_URL =
   "https://us-central1-summaristt.cloudfunctions.net/getBooks";
 const BOOK_API_URL =
   "https://us-central1-summaristt.cloudfunctions.net/getBook";
+const BOOK_SEARCH_API_URL =
+  "https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle";
 
 export async function getBooksByStatus(status: BookStatus): Promise<Book[]> {
   const response = await fetch(
@@ -59,4 +61,26 @@ export async function getBookById(id: string): Promise<Book> {
   }
 
   return book;
+}
+
+export async function searchBooksByAuthorOrTitle(
+  query: string,
+  signal?: AbortSignal,
+): Promise<Book[]> {
+  const response = await fetch(
+    `${BOOK_SEARCH_API_URL}?search=${encodeURIComponent(query)}`,
+    { cache: "no-store", signal },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to search books.");
+  }
+
+  const books = (await response.json()) as Book[];
+
+  if (!Array.isArray(books)) {
+    throw new Error("Invalid search response.");
+  }
+
+  return books;
 }
