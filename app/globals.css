@@ -1110,6 +1110,175 @@ button:disabled {
   text-align: center;
 }
 
+.player-page {
+  color: #032b41;
+}
+
+.player-page__header {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+  gap: 36px;
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto 48px;
+  padding: 28px;
+  border: 1px solid #e1e7ea;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 10px 28px rgba(3, 43, 65, 0.06);
+}
+
+.player-page__cover--mask {
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 4px;
+  background-color: #f1f6f4;
+  box-shadow: 0 12px 32px rgba(3, 43, 65, 0.12);
+}
+
+.player-page__cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-page__intro {
+  min-width: 0;
+}
+
+.player-page__title {
+  max-width: 700px;
+  margin-bottom: 10px;
+  color: #032b41;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.player-page__author {
+  margin-bottom: 24px;
+  color: #394547;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.audio-player {
+  max-width: 680px;
+  padding: 20px;
+  border: 1px solid #e1e7ea;
+  border-radius: 8px;
+  background-color: #f7faf9;
+}
+
+.audio-player__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.audio-player__button,
+.audio-player__play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  border-radius: 4px;
+  color: #032b41;
+  font-family: inherit;
+  font-weight: 700;
+  transition:
+    background-color 150ms,
+    border-color 150ms;
+}
+
+.audio-player__button {
+  width: 56px;
+  border: 1px solid #bac8ce;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+.audio-player__button:hover {
+  border-color: #2bd97c;
+  background-color: #f1f6f4;
+}
+
+.audio-player__play {
+  min-width: 110px;
+  padding: 0 20px;
+  background-color: #2bd97c;
+  font-size: 16px;
+}
+
+.audio-player__play:hover {
+  background-color: #20ba68;
+}
+
+.audio-player__timeline {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  gap: 12px;
+  align-items: center;
+}
+
+.audio-player__time {
+  color: #394547;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+.audio-player__seek {
+  width: 100%;
+  accent-color: #2bd97c;
+  cursor: pointer;
+}
+
+.player-page__summary {
+  max-width: 860px;
+  margin: 0 auto;
+  padding-top: 28px;
+  border-top: 1px solid #e1e7ea;
+}
+
+.player-page__summary h2 {
+  margin-bottom: 18px;
+  padding-left: 12px;
+  border-left: 4px solid #2bd97c;
+  color: #032b41;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.player-page__summary p {
+  color: #394547;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.player-page__skeleton-intro {
+  width: 100%;
+}
+
+.player-page__skeleton-title {
+  width: 80%;
+  height: 34px;
+}
+
+.player-page__skeleton-player {
+  max-width: 680px;
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f7faf9;
+}
+
 .book-card--skeleton {
   pointer-events: none;
 }
@@ -1286,6 +1455,16 @@ button:disabled {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .player-page__header {
+    grid-template-columns: minmax(140px, 190px) minmax(0, 1fr);
+    gap: 24px;
+    padding: 22px;
+  }
+
+  .player-page__title {
+    font-size: 28px;
+  }
+
   .book-detail__library {
     grid-column: 1 / -1;
   }
@@ -1422,6 +1601,39 @@ button:disabled {
 
   .book-detail__actions {
     grid-template-columns: 1fr;
+  }
+
+  .player-page__header {
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    margin-bottom: 36px;
+    padding: 18px;
+  }
+
+  .player-page__cover--mask {
+    max-width: 190px;
+  }
+
+  .player-page__title {
+    font-size: 26px;
+  }
+
+  .audio-player {
+    padding: 16px;
+  }
+
+  .audio-player__controls {
+    display: grid;
+    grid-template-columns: 56px 1fr 56px;
+  }
+
+  .audio-player__play {
+    min-width: 0;
+  }
+
+  .audio-player__timeline {
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+    gap: 8px;
   }
 
   .book-detail__action,
