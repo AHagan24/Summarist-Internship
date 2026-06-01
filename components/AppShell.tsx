@@ -22,7 +22,7 @@ import SearchBar from "@/components/SearchBar";
 import { auth } from "@/lib/firebase";
 
 type AppShellProps = {
-  activeItem?: "for-you" | "settings";
+  activeItem?: "for-you" | "library" | "settings";
   children: ReactNode;
   contentClassName?: string;
   showSearch?: boolean;
@@ -121,12 +121,15 @@ function AppShellContent({
                 </NavIcon>
                 For You
               </Link>
-              <span className="for-you__nav-item">
+              <Link
+                className={navItemClassName(activeItem === "library")}
+                href="/library"
+              >
                 <NavIcon>
                   <Library aria-hidden="true" />
                 </NavIcon>
                 My Library
-              </span>
+              </Link>
               <span className="for-you__nav-item">
                 <NavIcon>
                   <Highlighter aria-hidden="true" />

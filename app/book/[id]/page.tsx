@@ -76,7 +76,18 @@ export default async function BookDetailsPage({
             >
               Listen
             </Link>
-            <LibraryAction />
+            <LibraryAction
+              book={{
+                id: book.id,
+                title: book.title,
+                author: book.author,
+                imageLink: book.imageLink,
+                subTitle: book.subTitle,
+                averageRating: book.averageRating,
+                totalRating: book.totalRating,
+                subscriptionRequired: book.subscriptionRequired,
+              }}
+            />
           </div>
         </div>
       </section>

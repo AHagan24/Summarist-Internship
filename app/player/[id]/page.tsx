@@ -32,7 +32,19 @@ export default async function PlayerPage({
           <p className="for-you__eyebrow">Now playing</p>
           <h1 className="player-page__title">{book.title}</h1>
           <p className="player-page__author">By {book.author}</p>
-          <AudioPlayer audioLink={book.audioLink} bookId={book.id} />
+          <AudioPlayer
+            audioLink={book.audioLink}
+            book={{
+              id: book.id,
+              title: book.title,
+              author: book.author,
+              imageLink: book.imageLink,
+              subTitle: book.subTitle,
+              averageRating: book.averageRating,
+              totalRating: book.totalRating,
+              subscriptionRequired: book.subscriptionRequired,
+            }}
+          />
         </div>
       </section>
 
