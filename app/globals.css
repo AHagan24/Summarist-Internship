@@ -1237,6 +1237,12 @@ button:disabled {
   font-weight: 500;
 }
 
+.book-detail__library-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .book-detail__action--secondary,
 .book-detail__library {
   display: flex;
@@ -1257,6 +1263,14 @@ button:disabled {
   border-color: #2bd97c;
   background-color: #f1f6f4;
   color: #032b41;
+}
+
+.book-detail__library-feedback {
+  min-height: 18px;
+  margin-top: 6px;
+  color: #2bd97c;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .book-detail__section {
@@ -1899,8 +1913,13 @@ button:disabled {
     font-size: 28px;
   }
 
-  .book-detail__library {
+  .book-detail__library-wrap {
     grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .book-detail__library {
+    width: 100%;
   }
 
   .landing__content {
@@ -2120,6 +2139,10 @@ button:disabled {
 
   .book-detail__action,
   .book-detail__library {
+    width: 100%;
+  }
+
+  .book-detail__library-wrap {
     width: 100%;
   }
 

@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 
 type AuthMode = "login" | "register";
@@ -49,6 +49,7 @@ function getAuthErrorMessage(error: unknown, action: AuthAction) {
 
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const [mode, setMode] = useState<AuthMode>("login");
   const [error, setError] = useState("");
   const [loadingAction, setLoadingAction] = useState<AuthAction | null>(null);
@@ -62,7 +63,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   function handleSuccess() {
     onClose();
-    router.push("/for-you");
+
+    if (pathname === "/") {
+      router.push("/for-you");
+    }
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
