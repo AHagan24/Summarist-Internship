@@ -33,12 +33,12 @@ const faqs = [
   {
     question: "Can I switch plans later?",
     answer:
-      "Plan changes will be available once Stripe checkout and account billing are connected.",
+      "Yes you can switch between monthly and yearly plans at any time from your account settings.",
   },
   {
     question: "Is Stripe checkout active right now?",
     answer:
-      "Not yet. These plan buttons are placeholders and do not start a payment flow.",
+      "Yes. You can proceed to checkout and complete the purchase to start your subscription. If you encounter any issues, please contact our support team.",
   },
 ];
 
@@ -356,7 +356,7 @@ function ChoosePlanContent() {
             </div>
             <div className="footer__copyright--wrapper">
               <div className="footer__copyright">
-                Copyright &copy; 2023 Summarist.
+                Copyright &copy; 2026 Summarist.
               </div>
             </div>
           </div>
