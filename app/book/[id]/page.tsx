@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AppShell from "@/components/AppShell";
+import BookAccessActions from "@/components/BookAccessActions";
 import LibraryAction from "@/components/LibraryAction";
 import { getBookById } from "@/lib/api";
 
@@ -15,9 +16,6 @@ export default async function BookDetailsPage({
   const { id } = await params;
   const book = await getBookById(id);
   const tags = Array.isArray(book.tags) ? book.tags : [];
-  const actionHref = book.subscriptionRequired
-    ? "/choose-plan"
-    : `/player/${book.id}`;
 
   return (
     <AppShell contentClassName="book-detail">
@@ -67,15 +65,10 @@ export default async function BookDetailsPage({
           ) : null}
 
           <div className="book-detail__actions">
-            <Link className="btn book-detail__action" href={actionHref}>
-              Read
-            </Link>
-            <Link
-              className="book-detail__action book-detail__action--secondary"
-              href={actionHref}
-            >
-              Listen
-            </Link>
+            <BookAccessActions
+              bookId={book.id}
+              subscriptionRequired={book.subscriptionRequired}
+            />
             <LibraryAction
               book={{
                 id: book.id,

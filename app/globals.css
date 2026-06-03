@@ -1277,6 +1277,18 @@ button:disabled {
   color: #f04438;
 }
 
+.book-detail__access-feedback {
+  flex-basis: 100%;
+  min-height: 18px;
+  color: #6b757b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.book-detail__access-feedback--error {
+  color: #f04438;
+}
+
 .book-detail__section {
   max-width: 860px;
   margin-bottom: 36px;
@@ -1703,6 +1715,13 @@ button:disabled {
   color: #f04438;
   font-size: 14px;
   font-weight: 500;
+}
+
+.settings-page__success {
+  margin-top: 14px;
+  color: #20ba68;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .settings-page__skeleton-title {
@@ -2387,6 +2406,15 @@ button:disabled {
   color: #6b757b;
   font-size: 12px;
   font-weight: 700;
+  text-align: center;
+}
+
+.choose-plan__checkout-error {
+  margin-top: 10px;
+  color: #f04438;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
   text-align: center;
 }
 
