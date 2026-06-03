@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type KeyboardEvent } from "react";
+import { useEffect, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import {
   ArrowLeft,
   ChevronDown,
@@ -10,6 +11,11 @@ import {
   Headphones,
   Library,
 } from "lucide-react";
+import {
+  AuthModalProvider,
+  useAuthModal,
+} from "@/components/AuthModalProvider";
+import { auth } from "@/lib/firebase";
 
 type PlanId = "monthly" | "yearly";
 
@@ -80,17 +86,83 @@ const footerGroups = [
 ];
 
 export default function ChoosePlanPage() {
+  return (
+    <AuthModalProvider>
+      <ChoosePlanContent />
+    </AuthModalProvider>
+  );
+}
+
+function ChoosePlanContent() {
   const [selectedPlan, setSelectedPlan] = useState<PlanId>("yearly");
   const [openFaq, setOpenFaq] = useState(0);
+  const [user, setUser] = useState<User | null>(null);
+  const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
+  const { openAuthModal } = useAuthModal();
   const ctaText =
     selectedPlan === "yearly"
       ? "Start your free 7-day trial"
       : "Start your first month";
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
+      setUser(nextUser);
+    });
+
+    return unsubscribe;
+  }, []);
+
   function handlePlanKeyDown(event: KeyboardEvent, planId: PlanId) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       setSelectedPlan(planId);
+    }
+  }
+
+  async function handleCheckoutClick() {
+    const currentUser = user ?? auth.currentUser;
+
+    if (!currentUser) {
+      openAuthModal();
+      return;
+    }
+
+    setIsCreatingCheckout(true);
+    setCheckoutError("");
+
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          plan: selectedPlan,
+          customerEmail: currentUser.email,
+        }),
+      });
+      const data = (await response.json().catch(() => ({}))) as {
+        url?: unknown;
+        error?: unknown;
+      };
+
+      if (!response.ok || typeof data.url !== "string") {
+        throw new Error(
+          typeof data.error === "string"
+            ? data.error
+            : "Unable to start Stripe checkout.",
+        );
+      }
+
+      window.location.assign(data.url);
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error
+          ? error.message
+          : "Unable to start Stripe checkout.",
+      );
+      setIsCreatingCheckout(false);
     }
   }
 
@@ -213,12 +285,20 @@ export default function ChoosePlanPage() {
           </div>
 
           <div className="choose-plan__cta-area">
-            <button className="choose-plan__cta" disabled type="button">
-              {ctaText}
+            <button
+              className="choose-plan__cta"
+              disabled={isCreatingCheckout}
+              onClick={handleCheckoutClick}
+              type="button"
+            >
+              {isCreatingCheckout ? "Preparing checkout..." : ctaText}
             </button>
             <span className="choose-plan__checkout-note">
-              Stripe checkout coming soon
+              Secure checkout powered by Stripe
             </span>
+            {checkoutError ? (
+              <p className="choose-plan__checkout-error">{checkoutError}</p>
+            ) : null}
           </div>
         </section>
 
