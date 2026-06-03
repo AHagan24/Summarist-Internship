@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { AuthModalProvider } from "@/components/AuthModalProvider";
 import AuthModalTrigger from "@/components/AuthModalTrigger";
 
@@ -96,6 +97,18 @@ const secondStatisticHeadings = [
   "Improve your mood",
   "Maximize your abilities",
 ];
+
+type StatisticsHighlightStyle = CSSProperties & {
+  "--statistics-highlight-delay": string;
+};
+
+const statisticsHighlightStepSeconds = 2.6;
+
+function getStatisticsHighlightStyle(index: number): StatisticsHighlightStyle {
+  return {
+    "--statistics-highlight-delay": `${index * statisticsHighlightStepSeconds}s`,
+  };
+}
 
 const reviews = [
   {
@@ -252,8 +265,12 @@ export default function Home() {
 
             <div className="statistics__wrapper">
               <div className="statistics__content--header">
-                {statisticHeadings.map((heading) => (
-                  <div className="statistics__heading" key={heading}>
+                {statisticHeadings.map((heading, index) => (
+                  <div
+                    className="statistics__heading"
+                    key={heading}
+                    style={getStatisticsHighlightStyle(index)}
+                  >
                     {heading}
                   </div>
                 ))}
@@ -306,8 +323,14 @@ export default function Home() {
                 </div>
               </div>
               <div className="statistics__content--header statistics__content--header-second">
-                {secondStatisticHeadings.map((heading) => (
-                  <div className="statistics__heading" key={heading}>
+                {secondStatisticHeadings.map((heading, index) => (
+                  <div
+                    className="statistics__heading"
+                    key={heading}
+                    style={getStatisticsHighlightStyle(
+                      statisticHeadings.length + index,
+                    )}
+                  >
                     {heading}
                   </div>
                 ))}

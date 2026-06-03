@@ -387,6 +387,8 @@ button:disabled {
   color: #6b757b;
   font-size: 32px;
   font-weight: 500;
+  animation: statistics-heading-highlight 31.2s ease-in-out infinite;
+  animation-delay: var(--statistics-highlight-delay, 0s);
 }
 
 .statistics__heading:last-child {
@@ -409,8 +411,8 @@ button:disabled {
 }
 
 .statistics__data--number {
+  color: #394547;
   margin-top: 4px;
-  color: #0365f2;
   font-size: 20px;
   font-weight: 600;
 }
@@ -419,6 +421,10 @@ button:disabled {
   color: #394547;
   font-size: 20px;
   font-weight: 300;
+}
+
+.statistics__data--title b {
+  font-weight: 600;
 }
 
 .reviews__wrapper {
@@ -2043,6 +2049,28 @@ button:disabled {
   }
 }
 
+@keyframes statistics-heading-highlight {
+  0% {
+    color: #6b757b;
+  }
+
+  1.6%,
+  6.8% {
+    color: #20ba68;
+  }
+
+  8.333%,
+  100% {
+    color: #6b757b;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statistics__heading {
+    animation: none;
+  }
+}
+
 .for-you__error {
   display: flex;
   flex-direction: column;
@@ -2081,8 +2109,7 @@ button:disabled {
 .choose-plan {
   min-height: 100vh;
   padding: 24px;
-  background:
-    linear-gradient(180deg, #fff 0%, #f7faf9 42%, #f1f6f4 100%);
+  background: linear-gradient(180deg, #fff 0%, #f7faf9 42%, #f1f6f4 100%);
   color: #032b41;
   overflow-x: hidden;
 }
@@ -2473,8 +2500,7 @@ button:disabled {
   font-size: 16px;
   font-weight: 700;
   text-align: left;
-  transition:
-    color 150ms;
+  transition: color 150ms;
 }
 
 .choose-plan__faq-question span {
