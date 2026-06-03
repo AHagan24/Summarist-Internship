@@ -7,7 +7,7 @@ A full-stack audiobook and book summary platform inspired by Summarist, built as
 Add deployment URL here:
 
 ```txt
-https://your-app.vercel.app
+https://summarist-internship-osdzq33zk-ahagan24s-projects.vercel.app/
 ```
 
 ## Features
