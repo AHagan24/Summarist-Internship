@@ -175,15 +175,17 @@ function AppShellContent({
           </nav>
         </aside>
 
-        <section
-          className={`for-you__content${contentClassName ? ` ${contentClassName}` : ""}`}
-        >
-          {showSearch ? (
-            <div className="app-shell__search-area">
-              <SearchBar />
-            </div>
-          ) : null}
-          {children}
+        <section className="for-you__content">
+          <div
+            className={`for-you__content-inner${contentClassName ? ` ${contentClassName}` : ""}`}
+          >
+            {showSearch ? (
+              <div className="app-shell__search-area">
+                <SearchBar />
+              </div>
+            ) : null}
+            {children}
+          </div>
         </section>
       </div>
     </main>
