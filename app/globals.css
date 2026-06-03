@@ -16,6 +16,13 @@ body {
   overflow-x: hidden;
 }
 
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -43,6 +50,7 @@ button:disabled {
 
 .home-page {
   width: 100%;
+  overflow-x: hidden;
 }
 
 .row {
@@ -570,11 +578,13 @@ button:disabled {
 .for-you-page {
   min-height: 100vh;
   background-color: #f7faf9;
+  overflow-x: hidden;
 }
 
 .for-you__shell {
   display: flex;
   min-height: 100vh;
+  min-width: 0;
 }
 
 .for-you__sidebar {
@@ -685,6 +695,7 @@ button:disabled {
 
 .for-you__content {
   width: 100%;
+  min-width: 0;
   max-width: 1180px;
   margin: 0 auto;
   padding: 40px 48px 64px;
@@ -795,6 +806,7 @@ button:disabled {
   left: 0;
   right: 0;
   overflow: hidden;
+  max-width: calc(100vw - 32px);
   border: 1px solid #e1e7ea;
   border-radius: 8px;
   background-color: #fff;
@@ -1082,6 +1094,7 @@ button:disabled {
 
 .book-detail {
   color: #032b41;
+  min-width: 0;
 }
 
 .book-detail__back {
@@ -1279,6 +1292,7 @@ button:disabled {
 
 .book-detail__access-feedback {
   flex-basis: 100%;
+  grid-column: 1 / -1;
   min-height: 18px;
   color: #6b757b;
   font-size: 13px;
@@ -1374,6 +1388,7 @@ button:disabled {
 
 .player-page {
   color: #032b41;
+  min-width: 0;
 }
 
 .player-page__header {
@@ -1427,6 +1442,7 @@ button:disabled {
 }
 
 .audio-player {
+  width: 100%;
   max-width: 680px;
   padding: 20px;
   border: 1px solid #e1e7ea;
@@ -1484,6 +1500,7 @@ button:disabled {
   grid-template-columns: 48px minmax(0, 1fr) 48px;
   gap: 12px;
   align-items: center;
+  min-width: 0;
 }
 
 .audio-player__time {
@@ -1495,6 +1512,7 @@ button:disabled {
 }
 
 .audio-player__seek {
+  min-width: 0;
   width: 100%;
   accent-color: #2bd97c;
   cursor: pointer;
@@ -1542,6 +1560,8 @@ button:disabled {
 }
 
 .settings-page {
+  width: 100%;
+  min-width: 0;
   max-width: 780px;
 }
 
@@ -1730,6 +1750,8 @@ button:disabled {
 }
 
 .library-page {
+  width: 100%;
+  min-width: 0;
   max-width: 900px;
 }
 
@@ -2062,6 +2084,7 @@ button:disabled {
   background:
     linear-gradient(180deg, #fff 0%, #f7faf9 42%, #f1f6f4 100%);
   color: #032b41;
+  overflow-x: hidden;
 }
 
 .choose-plan__nav {
@@ -2454,6 +2477,11 @@ button:disabled {
     color 150ms;
 }
 
+.choose-plan__faq-question span {
+  min-width: 0;
+  line-height: 1.35;
+}
+
 .choose-plan__faq-question:hover,
 .choose-plan__faq-question[aria-expanded="true"] {
   color: #20ba68;
@@ -2508,6 +2536,7 @@ button:disabled {
     width: 100%;
     height: auto;
     padding: 20px 24px;
+    overflow: hidden;
     border-right: none;
     border-bottom: 1px solid #e1e7ea;
   }
@@ -2519,13 +2548,18 @@ button:disabled {
 
   .for-you__nav {
     flex-direction: row;
+    flex-wrap: wrap;
     flex: none;
-    overflow-x: auto;
+    max-width: 100%;
+    overflow-x: visible;
   }
 
   .for-you__nav-section {
     flex-direction: row;
     flex: 0 0 auto;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .for-you__nav-section--bottom {
@@ -2534,7 +2568,12 @@ button:disabled {
   }
 
   .for-you__nav-item {
+    min-height: 42px;
     white-space: nowrap;
+  }
+
+  .for-you__nav-button {
+    width: auto;
   }
 
   .for-you__content {
@@ -2544,6 +2583,10 @@ button:disabled {
   .search-bar {
     max-width: none;
     margin: 0;
+  }
+
+  .search-bar__dropdown {
+    max-width: 100%;
   }
 
   .app-shell__search-area {
@@ -2612,6 +2655,10 @@ button:disabled {
 
   .book-detail__library {
     width: 100%;
+  }
+
+  .book-detail__access-feedback {
+    grid-column: 1 / -1;
   }
 
   .landing__content {
@@ -2749,6 +2796,71 @@ button:disabled {
 }
 
 @media (max-width: 576px) {
+  .row {
+    padding: 0 16px;
+  }
+
+  .container {
+    padding: 32px 0;
+  }
+
+  .nav__wrapper {
+    padding: 0 16px;
+  }
+
+  .nav__img--mask {
+    max-width: 168px;
+  }
+
+  .landing__content__subtitle {
+    font-size: 17px;
+  }
+
+  .statistics__content--details {
+    padding: 28px 18px;
+  }
+
+  .statistics__data {
+    gap: 12px;
+  }
+
+  .statistics__data--title {
+    font-size: 15px;
+  }
+
+  .review__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer__top--wrapper {
+    margin-bottom: 40px;
+  }
+
+  .for-you__sidebar {
+    padding: 16px;
+  }
+
+  .for-you__logo--mask {
+    width: 136px;
+    margin-bottom: 16px;
+  }
+
+  .for-you__nav {
+    gap: 6px;
+  }
+
+  .for-you__nav-section {
+    gap: 6px;
+  }
+
+  .for-you__nav-item {
+    gap: 8px;
+    min-height: 40px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
   .for-you__content {
     padding: 28px 16px 40px;
   }
@@ -2759,7 +2871,12 @@ button:disabled {
   }
 
   .search-bar__results {
-    max-height: 360px;
+    max-height: min(360px, 62vh);
+  }
+
+  .search-bar__result {
+    min-height: 64px;
+    padding: 10px;
   }
 
   .settings-page__row {
@@ -2818,6 +2935,10 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 
+  .library-page__panel {
+    padding: 20px;
+  }
+
   .library-page__saved-card {
     grid-template-columns: 1fr;
     align-items: stretch;
@@ -2855,6 +2976,7 @@ button:disabled {
 
   .book-detail__cover--mask {
     max-width: 220px;
+    margin: 0 auto;
   }
 
   .book-detail__title {
@@ -2884,6 +3006,7 @@ button:disabled {
 
   .player-page__cover--mask {
     max-width: 190px;
+    margin: 0 auto;
   }
 
   .player-page__title {
@@ -2910,6 +3033,7 @@ button:disabled {
 
   .book-detail__action,
   .book-detail__library {
+    min-width: 0;
     width: 100%;
   }
 
@@ -2954,6 +3078,8 @@ button:disabled {
   }
 
   .choose-plan__card {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 14px;
     padding: 22px 18px;
   }
 
@@ -2968,5 +3094,67 @@ button:disabled {
   .choose-plan__section-header h2,
   .choose-plan__faq h2 {
     font-size: 23px;
+  }
+}
+
+@media (max-width: 430px) {
+  .settings-page__panel,
+  .library-page__panel,
+  .library-page__logged-out-card {
+    padding: 20px 16px;
+  }
+
+  .library-page__saved-link,
+  .library-page__saved-card--link {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .library-page__saved-cover-mask {
+    width: 64px;
+  }
+
+  .audio-player__controls {
+    grid-template-columns: 50px minmax(0, 1fr) 50px;
+    gap: 8px;
+  }
+
+  .audio-player__button {
+    width: 50px;
+  }
+
+  .choose-plan__card-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .choose-plan__plan-note {
+    text-align: left;
+  }
+
+  .choose-plan__cta {
+    min-height: 46px;
+    height: auto;
+    padding: 12px 14px;
+    line-height: 1.25;
+  }
+}
+
+@media (max-width: 390px) {
+  .for-you__content,
+  .choose-plan {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .auth-modal__layer {
+    padding: 16px;
+  }
+
+  .choose-plan__price {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 }
